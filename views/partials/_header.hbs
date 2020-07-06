@@ -1,0 +1,18 @@
+  <nav class="blue darken-3">
+    <div class="nav-wrapper container">
+        <a href="#!" class="brand-logo center">Expeculación</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-large"> <i class="fas fa-bars"></i></a>
+        <ul class="sidenav" id="mobile-demo">
+
+            <li><a href="/markets">Mercados</a></li>
+            {{#if (isLoggedOut user)}}
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/register">Register</a></li>
+            {{/if}}
+            {{#if (isLoggedIn user)}}
+            <li><a href="/markets/add">Crea tu Comercio</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>

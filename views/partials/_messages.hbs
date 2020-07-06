@@ -1,0 +1,47 @@
+{{#if (errorCheck errors)}}
+    {{#each errors }}
+
+    {{!-- <span class="helper-text" data-error="{{this.msg}}"></span> --}}
+    <div class="row">
+        <div class="chip red">
+            {{msg}}
+            
+        </div>
+    </div>
+    
+        
+    {{/each}}
+{{/if}}
+
+{{#if (flashMsg success_msg)}}
+
+    <div class="row">
+        <div class="chip green white-text">
+            {{success_msg}}
+            
+        </div>
+    </div>
+
+{{/if}}
+
+{{#if (flashMsg error_msg)}}
+
+    <div class="row">
+        <div class="chip red white-text">
+            {{error_msg}}
+            
+        </div>
+    </div>
+
+{{/if}}
+
+{{#if (flashMsg error)}}
+
+    <div class="row">
+        <div class="chip red white-text">
+            {{error}} 
+            
+        </div>
+    </div>
+
+{{/if}}

@@ -1,0 +1,30 @@
+<h1>Add a product</h1>
+<form action="/markets/{{market._id}}/products" method="POST">
+    <div class="row">
+            <div class="input-field">
+                <input type="text" name="name" id="name" required>
+                <label for="name">Product Name</label>
+            </div>
+
+            <div class="input-field">
+                <input type="number" name="priceBs" id="priceBs" required>
+                <label for="priceBs">Product PriceBs</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" name="category" id="category" required>
+                <label for="category">Product Category</label>
+            </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Save" class="btn">
+        <a href="/markets/{{market._id}}" class="btn orange">Cancel</a>
+        
+    </div>
+    
+</form>
+<h3>Upload Excel file</h3>
+<form action="/markets/{{market._id}}/products/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="excel"/>
+  <input type="submit" value="Upload" class="btn">
+</form>

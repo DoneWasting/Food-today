@@ -1,0 +1,31 @@
+<h3>Edit Market</h3>
+<div class="row">
+    <form action="/markets/{{market._id}}" method="POST" class="col s12">
+    <input type="hidden" name="_method" value="PUT">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" name="name" id="name" value="{{market.name}}">
+                <label for="name">Market Name</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <input type="text" name="brand" id="brand" value="{{market.brand}}">
+                <label for="brand">Market Brand</label>
+            </div>
+        </div>
+    
+    <div class="row">
+        <div class="input-field">
+                <input type="text" name="location" id="location" value="{{market.location}}">
+                <label for="location">Market Location</label>
+            </div>
+    </div>
+
+    <div class="row">
+        <input type="submit" value="Save" class="btn">
+        <a href="/markets" class="btn orange">Cancel</a>
+    </div>
+    </form>
+</div>

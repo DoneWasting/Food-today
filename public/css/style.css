@@ -1,0 +1,19 @@
+.tasa-dolar {
+    font-weight: bold;
+}
+
+.btn-float {
+    float: left;
+    margin-right: 10px;
+}
+
+#priceBs::-webkit-outer-spin-button,
+#priceBs::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+#priceBs[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}

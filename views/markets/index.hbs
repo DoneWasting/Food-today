@@ -1,0 +1,36 @@
+<h1 class="center-align green-text">Markets</h1>
+<div class="row">
+    <p> Hi {{user.firstName}}</p>
+    {{#each markets}}
+        <div class="col s12 l4 m6">
+            
+            <div class="card">
+                <!-- 
+                    Need to add user logic and then hbs helper
+                    --->
+                <div class="card-image">
+                {{#if (isUserCreator user ../user)}}
+                <a href="/markets/edit/{{_id}}" class="btn-floating halfway-fab blue">
+                <i class="fas fa-edit fa-small"></i></a>
+                {{/if}}
+                </div>
+                <div class="card-content center-align">
+                    <h5 class="blue-text">{{name}}</h5>
+                    <h6>{{brand}}</h6>
+                    <p>{{location}}</p>
+                    <p>Creado por {{user.firstName}} {{user.lastName}}</p>
+                    <div class="card-action center-align">
+                        <a href="/markets/{{_id}}" class="btn green">See Prices</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <p>No markets to display</p>
+    {{/each}}
+    
+    {{#if (isLoggedIn user)}}
+     {{> _market_add_btn}}
+    {{/if}}
+     
+</div>

@@ -1,0 +1,55 @@
+<div class="section">
+    <a href="/markets" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to all markets</a>
+</div>
+
+<div class="row">
+    <div class="col s12 m12">
+        <div class="center-align">
+            <h3 class="green-text">{{market.name}}</h3>
+            <h6 class="tasa-dolar">Tasa dolar del día {{tasaDolar}} Bs/$</h6>
+        </div>
+    </div>
+</div>
+
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio Bs</th>
+            <th>Precio $</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+            <tr>
+               <td>{{name}}</td>
+               <td>{{category}}</td>
+               <td>{{priceBs}} Bs</td>
+               <td>{{priceDolar}} $</td>
+               <td>
+                   {{!-- this market.user refers to product.market.user --}}
+                   {{#if (isUserCreator market.user ../user )}}
+                    <a href="/markets/{{market._id}}/products/edit/{{_id}}" class="btn btn-float">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                    {{#if (isUserCreator market.user ../user )}}
+                   <form action="/markets/{{market._id}}/products/{{_id}}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                   </form>
+                   {{/if}}
+                   
+               </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{#if (isUserCreator market.user user )}}
+<div class="fixed-action-btn">
+    <a href="/markets/{{market._id}}/products/add" class="btn-floating btn-large waves-effect waves-light green"><i class="fas fa-plus"></i></a>
+</div>
+{{/if}}
