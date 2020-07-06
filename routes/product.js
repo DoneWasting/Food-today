@@ -96,7 +96,7 @@ router.post('/upload',  upload.single('excel'), async (req, res) => {
         if(market.user != req.user.id) {
             res.redirect(`/markets/${req.params.marketId}`);
         } else {
-            
+            // If there is no file
             if(!req.file) {
                 res.redirect(`/markets/${req.params.marketId}/products/add`);
             } else {
