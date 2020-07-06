@@ -20,11 +20,13 @@ require('./config/passportLocal')(passport);
 
 // Session MUST BE ABOVE PASSPORT MIDDLEWARE
 app.use(session({
-  secret: '3175511',
+  secret: process.env.MY_SECRET || "secret",
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection})
 }));
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());
