@@ -33,7 +33,16 @@ app.use(passport.session());
 
 // Set global var
 app.use(function(req, res, next) {
-  res.locals.user = req.user || null;
+  if(req.user) {
+    res.locals.user = {
+      firstName:req.user.firstName,
+      lastName: req.user.lastName,
+      _id: req.user._id
+      }
+  } else {
+    res.locals.user = null;
+  }
+   
   next();
 });
 
@@ -59,7 +68,7 @@ app.use(methodOverride(function (req, res) {
       // look in urlencoded POST bodies and delete it
       let method = req.body._method
       delete req.body._method
-      return method
+      return method;
     }
   }));
 // Requiring Helpers
@@ -99,8 +108,6 @@ app.use('/', require('./routes/index'));
 app.use('/markets', require('./routes/market'));
 app.use('/products', require('./routes/product'));
 app.use('/users', require('./routes/user'));
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));

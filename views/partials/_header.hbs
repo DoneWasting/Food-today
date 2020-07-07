@@ -3,7 +3,7 @@
         <a href="#!" class="brand-logo center">Expeculación</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-large"> <i class="fas fa-bars"></i></a>
         <ul class="sidenav" id="mobile-demo">
-
+            <li><a href="/">Home</a></li>
             <li><a href="/markets">Mercados</a></li>
             {{#if (isLoggedOut user)}}
             <li><a href="/users/login">Login</a></li>
@@ -14,5 +14,15 @@
             <li><a href="/users/logout">Logout</a></li>
             {{/if}}
         </ul>
+
+        
+         {{#if (isLoggedIn user)}}
+         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Hi! {{user.firstName}} {{user.lastName}}</a></li>
+        </ul>
+        {{/if}}
+
+        <!-- Dropdown Structure -->
+        
     </div>
 </nav>
