@@ -24,16 +24,6 @@ const upload = multer({ storage: storage })
 
 const router = express.Router({mergeParams:true});
 
-// TEST DE EXCEL
-// async function excelTest() {
-//     const data = await getExcelData();
-//     for(product of data) {
-//         await Product.createWithDolar(product.name, product.priceBs, product.category, '5ef9811e3197ca17e0a7a559');
-//     }
-// }
-
-// excelTest();
-
 
 router.get('/', async (req, res) => {
     const products = await Product.find({market: req.params.marketId}).populate('market').lean();
@@ -90,7 +80,7 @@ router.post('/',ensureAuthenticated, async (req, res) => {
 });
 
 // --- TESTING MULTER ---------
-router.post('/upload',  upload.single('excel'), async (req, res) => {
+router.post('/upload',  [ensureAuthenticated, upload.single('excel')], async (req, res) => {
     try {
         const market = await Market.findById(req.params.marketId).lean();
         if(market.user != req.user.id) {
@@ -98,13 +88,20 @@ router.post('/upload',  upload.single('excel'), async (req, res) => {
         } else {
             // If there is no file
             if(!req.file) {
+                req.flash('upload_error', 'Please select a excel file to be uploaded!');
                 res.redirect(`/markets/${req.params.marketId}/products/add`);
+                
             } else {
-                const products = await getExcelData(uploadDirectory, req.file.filename);
-                for(product of products) {
-                    await Product.createWithDolar(product.name, product.priceBs, product.category, req.params.marketId);
+                if(req.file.mimetype !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    req.flash('upload_error', 'Wrong file format, make sure you are uploading an excel file!');
+                    res.redirect(`/markets/${req.params.marketId}/products/add`);
+                } else {
+                    const products = await getExcelData(uploadDirectory, req.file.filename);
+                    for(product of products) {
+                        await Product.createWithDolar(product.name, product.priceBs, product.category, req.params.marketId);
+                    }
+                    res.redirect(`/markets/${req.params.marketId}`); 
                 }
-            res.redirect(`/markets/${req.params.marketId}`); 
             }
         }
     } catch (err) {

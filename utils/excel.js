@@ -1,5 +1,16 @@
 const xlsxFile = require('read-excel-file/node');
 
+// TEST DE EXCEL
+// async function excelTest() {
+//     const data = await getExcelData();
+//     for(product of data) {
+//         await Product.createWithDolar(product.name, product.priceBs, product.category, '5ef9811e3197ca17e0a7a559');
+//     }
+// }
+
+// excelTest();
+
+
 function getExcelData(filePath, fileName) {
     let excelData =  xlsxFile(`${filePath}/${fileName}`).then(rows => {
       
