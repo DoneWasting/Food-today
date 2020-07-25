@@ -33,5 +33,8 @@ module.exports = {
         } else {
             return false;
         }
+    },
+    add: (index) => {
+        return index+1;
     }
 }

@@ -5,9 +5,11 @@
         <ul class="sidenav" id="mobile-demo">
             
             <li><a href="/markets">Mercados</a></li>
+            <hr>
             {{#if (isLoggedOut user)}}
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
+            <hr>
             {{/if}}
             {{#if (isLoggedIn user)}}
             <li><a href="/markets/add">Crea tu Comercio</a></li>
@@ -21,6 +23,12 @@
             <li><a href="sass.html">Hi! {{user.firstName}} {{user.lastName}}</a></li>
         </ul>
         {{/if}}
+         {{#if (isLoggedOut user)}}
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/register">Sign Up</a></li>
+        </ul>
+         {{/if}}
 
         <!-- Dropdown Structure -->
         

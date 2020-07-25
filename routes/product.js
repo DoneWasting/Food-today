@@ -1,6 +1,7 @@
 const express = require('express');
 const Market = require('../models/Market');
 const Product = require('../models/Product');
+
 const getExcelData = require('../utils/excel');
 const path = require('path');
 const fs = require('fs');
@@ -8,6 +9,7 @@ const { ensureAuthenticated } = require('../middleware/auth');
 
 // Multer CONFIG
 const multer  = require('multer');
+const getTasaDolar = require('../utils/dolar');
 const uploadDirectory = path.join(__dirname, '../uploads');
 
 const storage = multer.diskStorage({
@@ -63,15 +65,8 @@ router.post('/',ensureAuthenticated, async (req, res) => {
             
         } 
          else {
-            const productData = {
-            name: req.body.name,
-            priceBs: Number.parseInt(req.body.priceBs),
-            category: req.body.category,
-            market: req.params.marketId
-            }
-            await Product.createWithDolar(productData.name, productData.priceBs, productData.category, productData.market);
-        
-        res.redirect(`/markets/${productData.market}`);
+            await Product.createWithDolar(req.body.name, req.body.priceBs, req.body.mainCategory, req.body.subCategory, req.body.itemCategory, market);
+            res.redirect(`/markets/${productData.market}`);
         }
     } catch (err) {
         console.error(err);
@@ -79,10 +74,10 @@ router.post('/',ensureAuthenticated, async (req, res) => {
     }
 });
 
-// --- TESTING MULTER ---------
+// Procces upload form
 router.post('/upload',  [ensureAuthenticated, upload.single('excel')], async (req, res) => {
     try {
-        const market = await Market.findById(req.params.marketId).lean();
+        let market = await Market.findById(req.params.marketId);
         if(market.user != req.user.id) {
             res.redirect(`/markets/${req.params.marketId}`);
         } else {
@@ -97,9 +92,11 @@ router.post('/upload',  [ensureAuthenticated, upload.single('excel')], async (re
                     res.redirect(`/markets/${req.params.marketId}/products/add`);
                 } else {
                     const products = await getExcelData(uploadDirectory, req.file.filename);
-                    for(product of products) {
-                        await Product.createWithDolar(product.name, product.priceBs, product.category, req.params.marketId);
-                    }
+                    await Product.createManyWithDolar(products, req.params.marketId);
+                    // I used market2 because when i used market declared above
+                    // the links wouldn't show, (The categories weren't assigned)
+                    let market2 = await Market.findById(req.params.marketId);
+                    await market2.setUpCategories();
                     res.redirect(`/markets/${req.params.marketId}`); 
                 }
             }
@@ -170,6 +167,102 @@ router.delete('/:productId', ensureAuthenticated, async (req, res) => {
         }  else {
             await product.remove();
             res.redirect(`/markets/${req.params.marketId}`);
+        }
+        
+        
+    } catch (err) {
+        console.error(err);
+        res.render('/error/500');
+    }
+});
+
+
+
+router.get('/:mainCategory', ensureAuthenticated, async (req, res) => {
+    try {
+        const market = await Market.findById(req.params.marketId).lean();
+        const tasaDolar = await getTasaDolar();
+        const pageOptions = {
+            page: parseInt(req.query.page, 10) || 0,
+            limit: parseInt(req.query.limit, 10) || 10
+        }
+        const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId, mainCategory: req.params.mainCategory}) ) / 10 );
+        let totalPagesArray = [];
+        
+        for(let i = 0; i <= totalPages; i ++){
+            totalPagesArray.push(`?page=${i}`);
+        }
+        let products = await Product.find({market: req.params.marketId, mainCategory: req.params.mainCategory}).sort({name: 'asc'}).populate('market').skip(pageOptions.page * pageOptions.limit).limit(pageOptions.limit).lean();
+        
+        let selectedCategory = req.params.mainCategory;
+        
+        res.render('markets/marketMainCategory', {
+            products,
+            totalPagesArray,
+            market,
+            tasaDolar,
+            selectedCategory
+        });
+        
+    } catch (err) {
+        console.error(err);
+        res.render('/error/500');
+    }
+});
+
+router.get('/:mainCategory/:subCategory', ensureAuthenticated, async (req, res) => {
+    try {
+        const market = await Market.findById(req.params.marketId).lean();
+        if(!market) {
+            res.render('error/404');
+        } else {
+            const tasaDolar = await getTasaDolar();
+            let pageOptions = {
+                limit: parseInt(req.query.limit) || 10,
+                page: parseInt(req.query.page) || 0,
+            }
+            
+            let products = await Product.find({market: req.params.marketId, subCategory: req.params.subCategory}).populate('market').sort({name:'asc'}).skip(pageOptions.page * pageOptions.limit).limit(pageOptions.limit).lean();
+            let totalPagesArray = [];
+            const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId, subCategory: req.params.subCategory}) ) / 10 );
+            console.log(totalPages);
+
+            if(totalPages === 0){
+                totalPagesArray.push(`?page=0`);
+            } else {
+                for(let i = 0; i <= totalPages; i++) {
+                    totalPagesArray.push(`?page=${i}`);
+                }
+            }
+            console.log(totalPagesArray);
+            
+            let selectedCategory = req.params.mainCategory;
+            let selectedSub = req.params.subCategory;
+        
+            res.render('markets/marketSubCategory', {
+                market,
+                tasaDolar,
+                products,
+                totalPagesArray,
+                selectedCategory,
+                selectedSub
+
+            });
+        }
+    } catch (err) {
+        console.error(err);
+        res.render('/error/500');
+    }
+});
+
+router.get('/:mainCategory/:subCategory/:itemCategory', ensureAuthenticated, async (req, res) => {
+    try {
+        const market = await Market.findById(req.params.marketId);
+        if(!market) {
+            res.render('error/404');
+        } else {
+            let productsByCategory = await Product.find({market: req.params.marketId, itemCategory: req.params.itemCategory});
+            res.send(productsByCategory);
         }
         
         

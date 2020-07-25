@@ -136,15 +136,33 @@ router.get('/:marketId', async (req, res) => {
         if(!market) {
             res.render('error/404');
         } else {
+            const pageOptions = {
+                page: parseInt(req.query.page, 10) || 0,
+                limit: parseInt(req.query.limit, 10) || 10
+            }
+            const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId}) ) / 10 );
+            let totalPagesArray = [];
+            console.log(totalPages);
+            for(let i = 0; i <= totalPages; i ++){
+                totalPagesArray.push(`?page=${i}`);
+            }
+            console.log(totalPagesArray);
+            
+            
             const tasaDolar = await getTasaDolar();
             // await Product.updatePriceDolarAll();
-            const products = await Product.find({market:req.params.marketId}).sort({category: 'asc'}).populate('market')
+            const products = await Product.find({market:req.params.marketId}).sort({name: 'asc'}).populate('market').skip(pageOptions.page * pageOptions.limit).limit(pageOptions.limit)
                                           .lean();
+
+            
+                                         
+           
                                           
             res.render('markets/marketfull', {
                 market,
                 products,
-                tasaDolar
+                tasaDolar,
+                totalPagesArray
             });
         }
     } catch (err) {

@@ -1,39 +1,43 @@
 const xlsxFile = require('read-excel-file/node');
 
-// TEST DE EXCEL
-// async function excelTest() {
-//     const data = await getExcelData();
-//     for(product of data) {
-//         await Product.createWithDolar(product.name, product.priceBs, product.category, '5ef9811e3197ca17e0a7a559');
-//     }
-// }
-
-// excelTest();
-
 
 function getExcelData(filePath, fileName) {
-    let excelData =  xlsxFile(`${filePath}/${fileName}`).then(rows => {
-      
-      let objArray = []
-      for(let i = 1; i <= rows[0].length;i++) {
-          let obj = {}
-          let currentArray = []
-          
-          for(let j = 0; j< rows[0].length; j++) {
-             currentArray.push(rows[i][j]);
-          }
-          obj = {
-              name:currentArray[0],
-              priceBs: currentArray[1],
-              category: currentArray[2]
-          }
-          objArray.push(obj);
-      }
-     return objArray;
-  });
-  return excelData;  
-};
+  
+const schema = {
+  'Name': {
+      prop:'name',
+      type:String,
+      required: true
+  },
+  'PriceBs': {
+      prop:'priceBs',
+      type: Number,
+      required: true
+    },
+  'mainCategory':{
+      prop:'mainCategory',
+      type:String,
+      required: true
+    },
+    'subCategory':{
+      prop:'subCategory',
+      type:String,
+      required: true
+    },
+    'itemCategory':{
+      prop:'itemCategory',
+      type:String,
+      required: true
+    }
+}
 
+let data = xlsxFile(`${filePath}/${fileName}`, {schema} ).then(({rows, errors}) => {
+  errors.length === 0;
+  return rows;
+});
+
+  return data
+}
 
 
 module.exports = getExcelData;

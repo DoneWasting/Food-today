@@ -1,5 +1,5 @@
 <div class="section">
-    <a href="/markets" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to all markets</a>
+    <a href="/markets/{{market._id}}" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to all products</a>
 </div>
 <div class="section">
     {{#each market.categories}}
@@ -10,29 +10,19 @@
         {{/each}}
     </ul>
     {{/each}}
-<nav class="test green darken-3">
+<nav class="green darken-3">
   <div class="nav-wrapper">
     
     <ul class="left hide-on-med-and-down">
     {{#each market.categories}}
       <!-- Dropdown Trigger -->
+        
       <li class="active"><a class="dropdown-trigger" href="/markets/{{../market._id}}/products/{{this.main}}" data-target="{{@index}}">{{this.main}}</a></li>
+        
     {{/each}}
     </ul>
   </div>
 </nav>
- {{!-- <nav>
-    <div class="nav-wrapper green darken-3">
-     
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-{{#each mainCategories}}
-
-    <li><a href="/markets/{{../market._id}}/products/{{this}}">{{this}}</a></li>
- {{/each}}
-        
-      </ul>
-    </div>
-  </nav> --}}
 
  </div>
 
@@ -42,6 +32,15 @@
             <h3 class="green-text">{{market.name}}</h3>
             <h6 class="tasa-dolar">Tasa dolar del día {{tasaDolar}} Bs/$</h6>
         </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="breadcrumb">
+        <span class="black-text">
+            <a href="/markets/{{market._id}}">Inicio</a> > 
+            <a href="/markets/{{market._id}}/products/{{selectedCategory}}">{{selectedCategory}}</a>
+        </span>
     </div>
 </div>
 
@@ -90,14 +89,7 @@
 <div class="center-align">
     
     {{#each totalPagesArray}}
-        <a  href="/markets/{{../market._id}}{{this}}">{{add @index}}</a>
+        <a  href="/markets/{{../market._id}}/products/{{../selectedCategory}}{{this}}">{{add @index}}</a>
     {{/each}}
     
 </div>
-
-
-{{#if (isUserCreator market.user user )}}
-<div class="fixed-action-btn">
-    <a href="/markets/{{market._id}}/products/add" class="btn-floating btn-large waves-effect waves-light green"><i class="fas fa-plus"></i></a>
-</div>
-{{/if}}

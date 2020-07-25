@@ -72,7 +72,7 @@ app.use(methodOverride(function (req, res) {
     }
   }));
 // Requiring Helpers
-const {typeOf, errorCheck, flashMsg, isLoggedIn, isUserCreator, isLoggedOut} = require('./helpers/hbs');
+const {typeOf, errorCheck, flashMsg, isLoggedIn, isUserCreator, isLoggedOut, add} = require('./helpers/hbs');
   
 //Handlebars
 app.engine('.hbs', exphbs({ 
@@ -82,7 +82,8 @@ app.engine('.hbs', exphbs({
     flashMsg,
     isLoggedIn,
     isUserCreator,
-    isLoggedOut
+    isLoggedOut,
+    add,
 } ,
 defaultLayout: 'main',
 extname: '.hbs'

@@ -8,7 +8,17 @@ var productSchema = new mongoose.Schema({
       required: true,
       trim:true
     },
-    category:{
+    mainCategory:{
+      type:String,
+      required: true,
+      trim:true
+    },
+   subCategory:{
+      type:String,
+      required: true,
+      trim:true
+    },
+    itemCategory:{
       type:String,
       required: true,
       trim:true
@@ -31,13 +41,27 @@ function calcDolarPrice(priceBs, tasaDolar) {
   return (priceBs/tasaDolar).toFixed(2);
 }
 
-productSchema.statics.createWithDolar = async function(name,priceBs,category, market) {
+productSchema.statics.createWithDolar = async function(name,priceBs,mainCategory, subCategory, itemCategory, market) {
   const tasaDolar = await getTasaDolar();
-    const product = new Product({name, priceBs, category, market});
+    const product = new Product({name, priceBs, mainCategory, subCategory, itemCategory, market});
   product.priceDolar = calcDolarPrice(priceBs, tasaDolar);
-  console.log(product);
+  
   product.save();
   return product;
+}
+
+productSchema.statics.createManyWithDolar = async function(products, marketId) {
+  const tasaDolar = await getTasaDolar();
+
+  for (product of products) {
+   
+    const newProduct = new Product({name:product.name, priceBs:product.priceBs, mainCategory:product.mainCategory,
+      subCategory:product.subCategory, itemCategory:product.itemCategory, market: marketId});
+    newProduct.priceDolar = calcDolarPrice(newProduct.priceBs, tasaDolar);
+    newProduct.save();
+    console.log(newProduct);
+    console.log('Finished');
+  }
 }
 
 productSchema.statics.updatePriceDolarAll = async function() {
@@ -50,6 +74,62 @@ productSchema.statics.updatePriceDolarAll = async function() {
   console.log('Price Updated');
 };
 
+productSchema.statics.findMainCategories = async function (marketId) {
+  let products = await Product.find({ market: marketId});
+  let categoriesArray = [];
+
+  for( let product of products) {
+    if( !(categoriesArray.includes(product.mainCategory)) ) {
+      categoriesArray.push(product.mainCategory);
+    } 
+  }
+ 
+  return categoriesArray;
+}
+
+productSchema.statics.divideCategories = async function (marketId) {
+
+  let mainCategoriesGama = await Product.findMainCategories(marketId);
+  let objArray = [];
+  
+  
+  for(let mainCategory of mainCategoriesGama) {
+    let productsMain = await Product.find({market:marketId, mainCategory});
+    let subObjArray =[];
+    let subArray = [];
+
+    for( let product of productsMain) {
+      if( !(subArray.includes(product.subCategory)) ) {
+        subArray.push(product.subCategory);
+      }
+    }
+
+    for (let subCategory of subArray) {
+      let productsSub = await Product.find({market:marketId, subCategory});
+      let itemCategories = [];
+
+      for(let product of productsSub) {
+        if( !(itemCategories.includes(product.itemCategory)) ) {
+          itemCategories.push(product.itemCategory);
+        }
+      }
+     
+      let subObj = {
+        sub: subCategory,
+        item: itemCategories
+      }
+      subObjArray.push(subObj);
+    }
+    
+    let obj = {
+      main: mainCategory,
+      sub: subObjArray,
+    }
+    objArray.push(obj);
+  } // End maincategories loop
+  return objArray
+}
+
 productSchema.methods.updatePriceDolarOne = async function() {
   const tasaDolar = await getTasaDolar();
   this.priceDolar = calcDolarPrice(this.priceBs, tasaDolar);
@@ -59,10 +139,9 @@ productSchema.methods.updatePriceDolarOne = async function() {
 
 var Product = mongoose.model('Product', productSchema);
 
+// (async () => {
+  
 
-
-
-
-// Product.createWithDolar('hola', 2000, 'hecho', '5ef79ce9313c921de04954e6');
+// }) ();
 
 module.exports = Product;
