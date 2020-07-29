@@ -142,11 +142,13 @@ router.get('/:marketId', async (req, res) => {
             }
             const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId}) ) / 10 );
             let totalPagesArray = [];
-            console.log(totalPages);
+            let currentIndex = parseInt(req.query.page) || 0;
+            
             for(let i = 0; i <= totalPages; i ++){
                 totalPagesArray.push(`?page=${i}`);
+                
             }
-            console.log(totalPagesArray);
+            
             
             
             const tasaDolar = await getTasaDolar();
@@ -162,7 +164,8 @@ router.get('/:marketId', async (req, res) => {
                 market,
                 products,
                 tasaDolar,
-                totalPagesArray
+                totalPagesArray,
+                currentIndex
             });
         }
     } catch (err) {

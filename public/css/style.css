@@ -27,6 +27,11 @@
 }
 
 .breadcrumb a {
-    
     text-decoration: underline;
+}
+
+.active_link {
+    font-weight: bold;
+    color: green;
+    font-size: 1.25rem;
 }

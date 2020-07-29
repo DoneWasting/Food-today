@@ -5,11 +5,11 @@
         <ul class="sidenav" id="mobile-demo">
             
             <li><a href="/markets">Mercados</a></li>
-            <hr>
+            <li><a href="/search">Busca Productos</a></li>
             {{#if (isLoggedOut user)}}
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
-            <hr>
+            
             {{/if}}
             {{#if (isLoggedIn user)}}
             <li><a href="/markets/add">Crea tu Comercio</a></li>

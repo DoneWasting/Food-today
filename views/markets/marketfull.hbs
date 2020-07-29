@@ -88,10 +88,14 @@
 </table>
 
 <div class="center-align">
-    
+    <a href="/markets/{{market._id}}?page={{substractOne currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     {{#each totalPagesArray}}
-        <a  href="/markets/{{../market._id}}{{this}}">{{add @index}}</a>
+        {{{pagination ../currentIndex @index ../market}}}
     {{/each}}
+    <a href="/markets/{{market._id}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    
+</div>
+<div>
     
 </div>
 

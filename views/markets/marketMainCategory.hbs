@@ -88,8 +88,10 @@
 
 <div class="center-align">
     
+    <a href="/markets/{{market._id}}/products/{{selectedCategory}}?page={{substractOne currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     {{#each totalPagesArray}}
-        <a  href="/markets/{{../market._id}}/products/{{../selectedCategory}}{{this}}">{{add @index}}</a>
+        {{{pagination ../currentIndex @index ../market ../selectedCategory}}}
     {{/each}}
+    <a href="/markets/{{market._id}}/products/{{selectedCategory}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
     
 </div>

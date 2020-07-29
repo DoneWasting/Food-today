@@ -38,9 +38,9 @@
 <div class="section">
     <div class="breadcrumb">
         <span class="black-text">
-            <a href="markets/{{market._id}}">Inicio</a> > 
+            <a href="/markets/{{market._id}}">Inicio</a> > 
             <a href="/markets/{{market._id}}/products/{{selectedCategory}}">{{selectedCategory}}</a> > 
-            <a href="markets/{{market._id}}/products/{{selectedCategory}}/{{selectedSub}}">{{selectedSub}}</a>
+            <a href="/markets/{{market._id}}/products/{{selectedCategory}}/{{selectedSub}}">{{selectedSub}}</a>
         </span>
     </div>
 </div>
@@ -89,8 +89,10 @@
 
 <div class="center-align">
     
+    <a href="/markets/{{market._id}}/products/{{selectedCategory}}/{{selectedSub}}?page={{substractOne currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     {{#each totalPagesArray}}
-        <a  href="/markets/{{../market._id}}/products/{{../selectedCategory}}/{{../selectedSub}}/{{this}}">{{add @index}}</a>
+        {{{pagination ../currentIndex @index ../market ../selectedCategory ../selectedSub}}}
     {{/each}}
+    <a href="/markets/{{market._id}}/products/{{selectedCategory}}/{{selectedSub}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
     
 </div>

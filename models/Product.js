@@ -139,9 +139,23 @@ productSchema.methods.updatePriceDolarOne = async function() {
 
 var Product = mongoose.model('Product', productSchema);
 
-// (async () => {
+(async () => {
+  
+  let curatedProducts = []
+
+  let products = await Product.find().lean();
+
+  products.forEach(item => {
+    if( !(curatedProducts.includes(item.name)) ) {
+      curatedProducts.push(item.name);
+    }
+  });
+
+  console.log(curatedProducts.length);
+  console.log(products.length);
+  
   
 
-// }) ();
+}) ();
 
 module.exports = Product;

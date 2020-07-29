@@ -32,6 +32,26 @@ router.get('/', async (req, res) => {
     res.send(products);
 });
 
+
+router.get('/search', async (req, res ) => {
+    try {
+        if(!req.query.product){
+            return res.send({
+                error:'You must provide a product'
+            })
+        }
+
+        const regex = new RegExp(req.query.product, 'i');
+        let products = await Product.find({name:regex}).populate('market', 'name').lean();
+        console.log(products);
+        res.send(products);
+    } catch (err) {
+        console.error(err);
+        res.render('error/500');
+    }
+
+});
+
 // Description Show Add Product Page
 // @Route GET /markets/:marketId/products/add
 router.get('/add', ensureAuthenticated, async (req, res ) => {
@@ -178,7 +198,7 @@ router.delete('/:productId', ensureAuthenticated, async (req, res) => {
 
 
 
-router.get('/:mainCategory', ensureAuthenticated, async (req, res) => {
+router.get('/:mainCategory',  async (req, res) => {
     try {
         const market = await Market.findById(req.params.marketId).lean();
         const tasaDolar = await getTasaDolar();
@@ -188,6 +208,7 @@ router.get('/:mainCategory', ensureAuthenticated, async (req, res) => {
         }
         const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId, mainCategory: req.params.mainCategory}) ) / 10 );
         let totalPagesArray = [];
+        let currentIndex = parseInt(req.query.page) || 0;
         
         for(let i = 0; i <= totalPages; i ++){
             totalPagesArray.push(`?page=${i}`);
@@ -201,7 +222,8 @@ router.get('/:mainCategory', ensureAuthenticated, async (req, res) => {
             totalPagesArray,
             market,
             tasaDolar,
-            selectedCategory
+            selectedCategory,
+            currentIndex
         });
         
     } catch (err) {
@@ -210,7 +232,7 @@ router.get('/:mainCategory', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/:mainCategory/:subCategory', ensureAuthenticated, async (req, res) => {
+router.get('/:mainCategory/:subCategory',  async (req, res) => {
     try {
         const market = await Market.findById(req.params.marketId).lean();
         if(!market) {
@@ -224,6 +246,7 @@ router.get('/:mainCategory/:subCategory', ensureAuthenticated, async (req, res) 
             
             let products = await Product.find({market: req.params.marketId, subCategory: req.params.subCategory}).populate('market').sort({name:'asc'}).skip(pageOptions.page * pageOptions.limit).limit(pageOptions.limit).lean();
             let totalPagesArray = [];
+            let currentIndex = parseInt(req.query.page) || 0;
             const totalPages = Math.floor( ( await Product.countDocuments({market:req.params.marketId, subCategory: req.params.subCategory}) ) / 10 );
             console.log(totalPages);
 
@@ -245,7 +268,8 @@ router.get('/:mainCategory/:subCategory', ensureAuthenticated, async (req, res) 
                 products,
                 totalPagesArray,
                 selectedCategory,
-                selectedSub
+                selectedSub,
+                currentIndex
 
             });
         }
