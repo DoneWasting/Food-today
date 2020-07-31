@@ -141,7 +141,7 @@ var Product = mongoose.model('Product', productSchema);
 
 
 
-// (async () => {
+ (async () => {
   
 //   let curatedProducts = []
 
@@ -156,9 +156,12 @@ var Product = mongoose.model('Product', productSchema);
 //   console.log(curatedProducts.length);
 //   console.log(products.length);
   
+let products = await Product.find({market:'5f23c03e787b2e13c41d6b51'});
+
+console.log(products.length);
   
 
-// }) ();
+ }) ();
 
 let updateProductsPriceDolarPerHour =  () => {
   let currentTime = new Date();

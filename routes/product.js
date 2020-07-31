@@ -117,7 +117,7 @@ router.post('/upload',  [ensureAuthenticated, upload.single('excel')], async (re
                     // the links wouldn't show, (The categories weren't assigned)
                     let market2 = await Market.findById(req.params.marketId);
                     await market2.setUpCategories();
-                    res.redirect(`/markets/${req.params.marketId}`); 
+                    res.redirect(`/markets`); 
                 }
             }
         }
