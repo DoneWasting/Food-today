@@ -24,13 +24,16 @@ searchForm.addEventListener('submit', (e) => {
                     <div class="col s12 l4 m6">
                          <div class="card">
                             <div class="card-content center-align">
-                                <h6 class="blue-text">${item.name}</h6>
+                            <form action="/search/${item.name}"  method="POST">
+                                <h6 class="blue-text" name="productName">${item.name}</h6>
                                 <h6 class="green-text">${item.market.name}</h6>
                                 <p>Precio Bs: ${item.priceBs}</p>
                                 <p>Precio $: ${item.priceDolar}</p>
+                                
                                 <div class="card-action center-align">
-                                    <a href="/markets/{{_id}}" class="btn green"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                    <button type="submit" name="action" class="btn green"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>`

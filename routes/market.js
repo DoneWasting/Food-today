@@ -117,6 +117,7 @@ router.get('/:marketId/delete', ensureAuthenticated, async (req, res) => {
             
         } else {
             market.remove();
+            await Product.deleteMany({market:req.params.marketId});
             res.redirect('/markets');
         }
        
@@ -156,10 +157,6 @@ router.get('/:marketId', async (req, res) => {
             const products = await Product.find({market:req.params.marketId}).sort({name: 'asc'}).populate('market').skip(pageOptions.page * pageOptions.limit).limit(pageOptions.limit)
                                           .lean();
 
-            
-                                         
-           
-                                          
             res.render('markets/marketfull', {
                 market,
                 products,

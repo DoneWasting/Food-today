@@ -140,49 +140,17 @@ productSchema.methods.updatePriceDolarOne = async function() {
 var Product = mongoose.model('Product', productSchema);
 
 
-
- (async () => {
-  
-//   let curatedProducts = []
-
-//   let products = await Product.find().lean();
-
-//   products.forEach(item => {
-//     if( !(curatedProducts.includes(item.name)) ) {
-//       curatedProducts.push(item.name);
-//     }
-//   });
-
-//   console.log(curatedProducts.length);
-//   console.log(products.length);
-  
-let products = await Product.find({market:'5f23c03e787b2e13c41d6b51'});
-
-console.log(products.length);
-  
-
- }) ();
-
 let updateProductsPriceDolarPerHour =  () => {
+
   let currentTime = new Date();
   let nextHours = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), currentTime.getHours() +1, 0, 0, 0 );
-  
-  console.log(currentTime);
-  console.log(nextHours);
-  
   let difference = nextHours - currentTime;
-  
 
   setTimeout( async () => {
     console.log(nextHours);
     await Product.updatePriceDolarAll();
-
     updateProductsPriceDolarPerHour();
   }, difference);
-
-  
-
-
 }
 
 updateProductsPriceDolarPerHour();

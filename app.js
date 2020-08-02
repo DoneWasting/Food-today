@@ -112,6 +112,7 @@ app.use('/', require('./routes/index'));
 app.use('/markets', require('./routes/market'));
 app.use('/products', require('./routes/product'));
 app.use('/users', require('./routes/user'));
+app.use('/search', require('./routes/search'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));

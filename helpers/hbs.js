@@ -9,12 +9,10 @@ module.exports = {
         return msg!='';
     },
     isUserCreator: (marketUser, loggedUser) => {
-        
         if(loggedUser === null) {
             return false;
         } else if (loggedUser._id.toString() === marketUser._id.toString()) {
             return true ;
-        
         } else {
             return false;
         }
@@ -52,11 +50,7 @@ module.exports = {
             } else {
                 str = `/products/${mainCategory}`;
             }
-             
-        }
-        console.log(str);
-        
-        
+        } 
         
         if(loopedIndex >= currentIndex + 5 || loopedIndex <= currentIndex -5){
             return `<a style="display:none" href="/markets/${market._id}${str}?page=${loopedIndex}"> ${loopedIndex + 1} </a>`

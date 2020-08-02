@@ -34,9 +34,6 @@ MarketSchema.methods.setUpCategories = async function () {
 
 const Market = mongoose.model('Market', MarketSchema);
 
-(async () => {
-    
-})();
 
 
 

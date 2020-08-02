@@ -27,10 +27,7 @@ const upload = multer({ storage: storage })
 const router = express.Router({mergeParams:true});
 
 
-router.get('/', async (req, res) => {
-    const products = await Product.find({market: req.params.marketId}).populate('market').lean();
-    res.send(products);
-});
+
 
 
 router.get('/search', async (req, res ) => {
@@ -42,8 +39,8 @@ router.get('/search', async (req, res ) => {
         }
 
         const regex = new RegExp(req.query.product, 'i');
-        let products = await Product.find({name:regex}).populate('market', 'name').lean();
-        console.log(products);
+        let products = await Product.find({name:regex}).populate('market', ['name', '_id']).lean();
+        
         res.send(products);
     } catch (err) {
         console.error(err);
