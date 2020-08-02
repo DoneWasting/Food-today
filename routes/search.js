@@ -65,18 +65,25 @@ router.get('/checkout', ensureAuthenticated, async (req, res) => {
                     let match = await Product.findOne({name: product.name, market: market._id}).lean();
 
                     if(!match) {
-                        match = 'Not found';
+                        match = {
+                            name:'Not found',
+                            priceBs: 0,
+                            priceDolar: 0
+                        }
                     } else {
                         totalPriceBs+= match.priceBs;
                         totalPriceDolar+= match.priceDolar;
                     }
                     productsInMarket.push(match);
+                    productsInMarket.sort((a,b) => b.priceBs - a.priceBs);
                 }
 
                 if(totalPriceBs === 0 || totalPriceDolar=== 0) {
                     continue;
                 }
                 totalPriceDolar = totalPriceDolar.toFixed(2);
+                // totalPriceBs =  Intl.NumberFormat('es-VE').format(totalPriceBs);
+                totalPriceBs = totalPriceBs.toLocaleString();
 
 
                 comparisonArray.push({
@@ -87,7 +94,7 @@ router.get('/checkout', ensureAuthenticated, async (req, res) => {
                 });
                 
             }
-           console.log(comparisonArray[1].matchedProducts);
+           
            comparisonArray = comparisonArray.sort((a,b) => {
                return a.totalPriceBs - b.totalPriceBs
            });  
