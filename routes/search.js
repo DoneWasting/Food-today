@@ -76,6 +76,7 @@ router.get('/checkout', ensureAuthenticated, async (req, res) => {
                 if(totalPriceBs === 0 || totalPriceDolar=== 0) {
                     continue;
                 }
+                totalPriceDolar = totalPriceDolar.toFixed(2);
 
 
                 comparisonArray.push({
