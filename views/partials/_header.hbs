@@ -1,32 +1,34 @@
-  <nav class="blue darken-3">
+  <nav class="supernav">
     <div class="nav-wrapper container">
         <a href="#!" class="brand-logo center">Expeculación</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-large"> <i class="fas fa-bars"></i></a>
         <ul class="sidenav" id="mobile-demo">
-            
+            <li><a href="/">Inicio</a></li>
             <li><a href="/markets">Mercados</a></li>
             <li><a href="/search">Busca Productos</a></li>
             {{#if (isLoggedOut user)}}
-            <li><a href="/users/login">Login</a></li>
-            <li><a href="/users/register">Register</a></li>
+            <li><a href="/users/login">Inicia Sesión</a></li>
+            <li><a href="/users/register">Regístrate</a></li>
             
             {{/if}}
             {{#if (isLoggedIn user)}}
             <li><a href="/markets/add">Crea tu Comercio</a></li>
-            <li><a href="/users/logout">Logout</a></li>
+            <li><a href="/users/logout">Cerra Sesión</a></li>
             {{/if}}
         </ul>
+       
 
         
          {{#if (isLoggedIn user)}}
          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Hi! {{user.firstName}} {{user.lastName}}</a></li>
+            <li><a href="/users/me">Hola! {{user.firstName}} {{user.lastName}}</a></li>
         </ul>
         {{/if}}
          {{#if (isLoggedOut user)}}
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/users/login">Login</a></li>
-            <li><a href="/users/register">Sign Up</a></li>
+            
+            <li><a href="/users/login">Inicia Sesión</a></li>
+            <li><a href="/users/register">Regístrate</a></li>
         </ul>
          {{/if}}
 

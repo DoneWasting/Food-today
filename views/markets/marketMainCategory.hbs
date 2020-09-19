@@ -1,4 +1,6 @@
-<div class="section">
+<div class="container">
+    <div class="section">
+
     <a href="/markets/{{market._id}}" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to all products</a>
 </div>
 <div class="section">
@@ -88,10 +90,14 @@
 
 <div class="center-align">
     
-    <a href="/markets/{{market._id}}/products/{{selectedCategory}}?page={{substractOne currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    {{{paginationArrowsPrev totalPagesArray.length currentIndex market selectedCategory }}}
+    
     {{#each totalPagesArray}}
         {{{pagination ../currentIndex @index ../market ../selectedCategory}}}
     {{/each}}
-    <a href="/markets/{{market._id}}/products/{{selectedCategory}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-    
+    {{!-- <a href="/markets/{{market._id}}/products/{{selectedCategory}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a> --}}
+    {{{paginationArrowsNext totalPagesArray.length currentIndex market selectedCategory }}}
 </div>
+
+</div>
+

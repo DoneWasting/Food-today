@@ -1,7 +1,11 @@
-<div class="section">
-    <a href="/search" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to Search</a>
+
+
+
+<div class="container">
+    <div class="section">
+    <a href="/search" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i> Volver a búsqueda</a>
 </div>
-<h3 class="center-align">Price Comparison</h3>
+<h3 class="center-align">Comparación de Precios</h3>
 {{#each comparisonArray}}
 <div class="section">
 <h4 class="green-text center-align">{{market}}</h4>
@@ -21,6 +25,7 @@
                <td>{{priceDolar}} $</td>
             </tr>
         {{/each}}
+        
         <tr>
             <th>Total:</th>
             <th>{{totalPriceBs}} Bs</th>
@@ -30,8 +35,9 @@
 </table>
 <div class="divider"></div>
 <div class="center-align section">
-    <button class="waves-effect waves-light btn blue darken-3">View Location</button>
+    <button class="waves-effect waves-light btn blue darken-3">Ver Ubicación</button>
 </div>
 
 </div>
 {{/each}}
+</div>

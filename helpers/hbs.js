@@ -32,7 +32,8 @@ module.exports = {
             return false;
         }
     },
-    add: (index) => {
+    add: (index , totalPagesArrayLength) => {
+
         return index+1;
     },
     substractOne: (index) => {
@@ -59,5 +60,45 @@ module.exports = {
         } else {
             return `<a href="/markets/${market._id}${str}?page=${loopedIndex}"> ${loopedIndex + 1} </a>`
         }
+    },
+    paginationArrowsNext: (totalPagesArrayLength, currentIndex, market, mainCategory = false, subCategory = false) => {
+        
+        let str = '';
+        if(typeof mainCategory === 'string' ){
+            if(typeof subCategory === 'string') {
+                str = `/products/${mainCategory}/${subCategory}`
+            } else {
+                str = `/products/${mainCategory}`;
+            }
+        } 
+       
+        if(currentIndex <= 0) {
+           return `<a href="/markets/${market._id}${str}?page=${currentIndex + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>`
+        }
+
+        else if (currentIndex < totalPagesArrayLength - 1 ) {
+            return `<a href="/markets/${market._id}${str}?page=${currentIndex + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>`
+        }
+    },
+    paginationArrowsPrev: (totalPagesArrayLength, currentIndex, market, mainCategory = false, subCategory = false) => {
+
+        let str = '';
+        if(typeof mainCategory === 'string' ){
+            if(typeof subCategory === 'string') {
+                str = `/products/${mainCategory}/${subCategory}`
+            } else {
+                str = `/products/${mainCategory}`;
+            }
+        } 
+        
+       
+        if(currentIndex > 0) {
+           return `<a href="/markets/${market._id}${str}?page=${currentIndex - 1}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>`
+        }
+
+        
+    },
+    userHasCart: (cart) => {
+        return ` <div class="fixed-action-btn left-button"><a href="/markets/add" class="btn-floating btn-large waves-effect waves-light red"><i class="fas fa-thrash"></i></a></div>`
     }
 }

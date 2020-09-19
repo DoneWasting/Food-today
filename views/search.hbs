@@ -1,14 +1,19 @@
-<div class="section container">
+
+<div class="container section">
+  {{> _messages}}   
     <div class="row">
         
+        
         <div class="input-field col s12 m6 offset-m3">
+            
             <form>
                 
             
                 <i class="fas fa-apple-alt prefix"></i>
                 <input  id="search" type="text" class="validate">
-                <label for="search">Search For product</label>
-                <button type="submit">Search</button>
+                <label for="search">Busca un producto!</label>
+                <button type="submit">Buscar</button>
+                
             </form>
             
                         
@@ -21,6 +26,8 @@
 <div class="fixed-action-btn">
             <a href="/search/checkout" class="btn-floating btn-large waves-effect waves-light green"><i class="fa fa-shopping-cart"></i></a>
 </div>
+
+
 
 
 <script src="/js/search.js"></script>

@@ -1,3 +1,4 @@
+<div class="container">
 <div class="section">
     <a href="/markets" id="link-backMarkets"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back to all markets</a>
 </div>
@@ -88,11 +89,14 @@
 </table>
 
 <div class="center-align">
-    <a href="/markets/{{market._id}}?page={{substractOne currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    {{!-- <a href="/markets/{{market._id}}?page={{substractOne
+    currentIndex}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> --}}
+    {{{paginationArrowsPrev totalPagesArray.length currentIndex market}}}
     {{#each totalPagesArray}}
         {{{pagination ../currentIndex @index ../market}}}
     {{/each}}
-    <a href="/markets/{{market._id}}?page={{add currentIndex}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    {{{paginationArrowsNext totalPagesArray.length currentIndex market}}}
+    {{!-- <a href="/markets/{{market._id}}?page={{{add currentIndex totalPagesArray.length - 1}}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a> --}}
     
 </div>
 <div>
@@ -105,3 +109,4 @@
     <a href="/markets/{{market._id}}/products/add" class="btn-floating btn-large waves-effect waves-light green"><i class="fas fa-plus"></i></a>
 </div>
 {{/if}}
+</div>

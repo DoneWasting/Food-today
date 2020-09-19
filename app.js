@@ -72,7 +72,7 @@ app.use(methodOverride(function (req, res) {
     }
   }));
 // Requiring Helpers
-const {typeOf, errorCheck, flashMsg, isLoggedIn, isUserCreator, isLoggedOut, add, substractOne, pagination} = require('./helpers/hbs');
+const {typeOf, errorCheck, flashMsg, isLoggedIn, isUserCreator, isLoggedOut, add, substractOne, pagination, paginationArrowsNext, paginationArrowsPrev, userHasCart} = require('./helpers/hbs');
   
 //Handlebars
 app.engine('.hbs', exphbs({ 
@@ -85,7 +85,10 @@ app.engine('.hbs', exphbs({
     isLoggedOut,
     add,
     substractOne,
-    pagination
+    pagination,
+    paginationArrowsNext,
+    paginationArrowsPrev,
+    userHasCart
 } ,
 defaultLayout: 'main',
 extname: '.hbs'
@@ -104,6 +107,7 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.upload_error = req.flash('upload_error');
+    res.locals.success_added_cart_msg = req.flash('added_to_cart');
     next();
 });
 

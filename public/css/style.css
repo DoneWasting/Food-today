@@ -1,3 +1,32 @@
+/* 
+    Colors:
+    
+    #51CB20 ( Lime green)
+    #76B041 (Green RYB)
+    #639A88 (Polished pine)
+    #3A5683 (Y in mn Blue)
+    #2708A0 (trypan blue)
+ */
+
+ 
+ .supernav {
+     background-color: #3A5683 ;
+     
+ }
+
+ #mobile-demo  a{
+     color:white;
+ }
+
+ .sidenav {
+     background-color:#3A5683 ;
+ }
+
+ 
+
+
+
+
 .tasa-dolar {
     font-weight: bold;
 }
@@ -36,3 +65,208 @@
     font-size: 1.25rem;
 }
 
+.left-button{
+    left: 23px;
+    right: auto;
+   }
+
+/* The hero image */
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/banner1.jpg");
+  
+    /* Set a specific height */
+    height: 85vh;
+    width: 100%;
+  
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Place text in the middle of the image */
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  .section-home {
+      margin-top: 30px;
+      margin-bottom: 30px;
+  }
+
+  .button-test {
+      background-color: #51CB20;
+      color:white;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 1.8rem;
+      display: inline-block;
+      border-radius: 8rem;
+      transition: all .2s;
+      position: relative;
+      font-size: 1.2rem;
+
+     
+      border: none;
+      cursor: pointer;
+  }
+
+  .sub-heading {
+      color:#3A5683;
+  }
+
+  
+
+  .icon-green {
+      color:#76B041;
+  }
+
+  .image-comparison {
+    background-image: url("../img/comparison2.jpg");
+    padding-top:0;
+    margin-top: 0;
+    /* Set a specific height */
+    height: 60vh;
+    width: 100%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  .image-comparison2 {
+      color:#ffffff;
+      height:60vh;
+  }
+
+  .absolute-center {
+      text-align: center;
+      margin:0 auto;
+  }
+  
+  .absolute-center li {
+    margin-top:30px;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+
+
+  .section-comparison {
+      background-color: #3A5683;
+      padding:0 0;
+      margin-bottom: 0;
+  }
+
+  .section-calltoaction {
+       background-color: #3A5683; 
+      height:70vh;
+      position: relative;
+
+      background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/cta3.jpg");
+  
+      /* Set a specific height */
+
+      width: 100%;
+    
+      /* Position and center the image to scale nicely on all screens */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      
+  }
+
+  .text-box-cta {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding:2.5rem 2.5rem;
+    transform: translate(-50%, -50%);
+    color:#fff;
+    border:0.3rem #51CB20 solid;
+    border-radius: 0.5rem;
+    width:60%;
+    
+  }
+
+  .btn-padding {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+     
+  }
+
+  .heading-cta{
+   color:#51CB20;
+   font-weight: bold;
+  }
+
+  .subfooter {
+      background-color: #639A88;
+  }
+
+  #footer-copyright {
+      background-color: #3A5683;
+  }
+
+.footer-ul .col h5 {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #51CB20;
+}
+.hero-card{
+    background-color: rgba(0, 0, 0, 0);
+    
+    color:#ffffff;
+}
+
+.item-card h5 {
+    color:#3A5683;
+}
+
+
+.icon-green-primary {
+    color:#51CB20;
+}
+
+
+.hero-login {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/herologinbags.jpg");
+  
+    /* Set a specific height */
+    height: 100vh;
+    width: 100%;
+  
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+
+
+
+
+
+
+  

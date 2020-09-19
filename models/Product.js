@@ -79,9 +79,19 @@ productSchema.statics.findMainCategories = async function (marketId) {
   let categoriesArray = [];
 
   for( let product of products) {
+
+
     if( !(categoriesArray.includes(product.mainCategory)) ) {
       categoriesArray.push(product.mainCategory);
     } 
+
+    // if( (categoriesArray.includes(product.mainCategory)) ) {
+    //   continue
+    // } else if (!(categoriesArray.includes(product.mainCategory))) {
+    //   categoriesArray.push(product.mainCategory);
+    // }
+
+
   }
  
   return categoriesArray;
@@ -154,6 +164,10 @@ let updateProductsPriceDolarPerHour =  () => {
 }
 
 updateProductsPriceDolarPerHour();
+
+(async () => {
+   await Product.deleteMany({market:'5f0d2d6fec8d080017534e54'});
+}) ();
 
 
 

@@ -106,6 +106,10 @@ router.post('/register', async (req, res) => {
 
 });
 
+router.get('/me', ensureAuthenticated, (req, res) => {
+    res.render('users/me');
+});
+
 
 router.get('/logout', ensureAuthenticated, (req, res) => {
     req.logout();

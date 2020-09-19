@@ -20,6 +20,7 @@ router.get('/', (req, res) => {
 // Add to product to cart Route
 router.post('/:productName', ensureAuthenticated,  async (req, res) => {
     try {
+        req.flash('added_to_cart', ``);
         let addedProduct = await Product.findOne({name: req.params.productName});
         
         let findCart = await Cart.findOne({user:req.user._id});
@@ -29,12 +30,13 @@ router.post('/:productName', ensureAuthenticated,  async (req, res) => {
             let newCart = await Cart.findOne({user: req.user._id});
             newCart.addedProducts.push(addedProduct);
             newCart.save();
+            req.flash('added_to_cart', `${addedProduct.name} product added`);
             res.redirect('/search');
         } else {
             findCart.addedProducts.push(addedProduct);
             await findCart.save();
-            
-            res.redirect('/search');
+            req.flash('added_to_cart', `${addedProduct.name} product added`);
+            res.redirect('/search' );
         }
         
     } catch (err) {
@@ -96,11 +98,11 @@ router.get('/checkout', ensureAuthenticated, async (req, res) => {
             }
            
            comparisonArray = comparisonArray.sort((a,b) => {
-               return a.totalPriceBs - b.totalPriceBs
+               return a.totalPriceDolar - b.totalPriceDolar
            });  
 
             
-        // await Cart.deleteOne({user: req.user._id});
+        await Cart.deleteOne({user: req.user._id});
 
         res.render('checkout', { 
             comparisonArray
