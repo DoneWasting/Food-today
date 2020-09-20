@@ -5,13 +5,14 @@ const Product = require('../models/Product');
 const runEveryDay = () => {
     let dateAtRunTime = new Date();
     dateAtRunTime.setHours(9);
-    console.log('running');
+    dateAtRunTime.setMinutes(0);
+    dateAtRunTime.setSeconds(0);
+    dateAtRunTime.setMilliseconds(0);
+
+
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1, dateAtRunTime.getHours() , 0, 0, 0 );
   
-    let nextDate = new Date();
-    nextDate.setDate(dateAtRunTime.getDate() + 1);
-    nextDate.setHours(9);
-  
-    console.log(`Plazas ${dateAtRunTime.getDate()}-${dateAtRunTime.getMonth()}-${dateAtRunTime.getYear()}`);
+    
     let difference = nextDate - dateAtRunTime;
   
     setTimeout( async () => {
