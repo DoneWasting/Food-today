@@ -165,9 +165,6 @@ let updateProductsPriceDolarPerHour =  () => {
 
 updateProductsPriceDolarPerHour();
 
-(async () => {
-   await Product.deleteMany({market:'5f0d2d6fec8d080017534e54'});
-}) ();
 
 
 

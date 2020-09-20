@@ -11,6 +11,8 @@ const session = require('express-session');
 // MUST BE Below express-session
 const MongoStore = require('connect-mongo')(session);
 
+const runEveryDay = require('./timedFunctions/timedFunctions');
+
 
 const app = express();
 
