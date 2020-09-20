@@ -1,6 +1,8 @@
 const getGamaExpressData = require('../scrapers/gamaexpress');
 const getPlazasData = require('../scrapers/plazas');
 const Product = require('../models/Product');
+const Market = require('../models/Market');
+
 
 const runEveryDay = () => {
     let dateAtRunTime = new Date();
@@ -18,7 +20,13 @@ const runEveryDay = () => {
     setTimeout( async () => {
   
         updatePlazasPrices();
-        updateGamaExpressPrices();
+        await updateGamaExpressPrices();
+
+        const gamaExpress = await Market.findById('5f6790d4d97f893d40824b5d');
+        const plazas = await Market.findById('5f6790c5d97f893d40824b5c');
+
+        await plazas.save();
+        await gamaExpress.save();
        
         runEveryDay();
     }, difference );
@@ -32,7 +40,7 @@ const runEveryDay = () => {
       console.timeEnd('someFunction');
   
       for (let product of data) {
-        let matchedProduct = await Product.findOne({market:'5f628725def4ba14b8a08bc9', name: product.name});
+        let matchedProduct = await Product.findOne({market:'5f6790d4d97f893d40824b5d', name: product.name});
         
         if(!matchedProduct) {
           await Product.createWithDolar(product.name, product.priceBs, product.mainCategory, product.subCategory, product.itemCategory)
@@ -40,7 +48,7 @@ const runEveryDay = () => {
   
           if(matchedProduct.priceBs !== product.priceBs) {
             matchedProduct.priceBs = product.priceBs;
-            matchedProduct.save();
+            await matchedProduct.save();
           }
   
         }
@@ -55,7 +63,7 @@ const runEveryDay = () => {
         console.timeEnd('someFunction');
     
         for (let product of data) {
-          let matchedProduct = await Product.findOne({market:'5efe9f3d6239af00f4ba6aad', name: product.name});
+          let matchedProduct = await Product.findOne({market:'5f6790c5d97f893d40824b5c', name: product.name});
           
           if(!matchedProduct) {
             await Product.createWithDolar(product.name, product.priceBs, product.mainCategory, product.subCategory, product.itemCategory)
@@ -63,7 +71,7 @@ const runEveryDay = () => {
     
             if(matchedProduct.priceBs !== product.priceBs) {
               matchedProduct.priceBs = product.priceBs;
-              matchedProduct.save();
+              await matchedProduct.save();
             }
     
           }

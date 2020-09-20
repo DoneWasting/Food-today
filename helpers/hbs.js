@@ -100,5 +100,9 @@ module.exports = {
     },
     userHasCart: (cart) => {
         return ` <div class="fixed-action-btn left-button"><a href="/markets/add" class="btn-floating btn-large waves-effect waves-light red"><i class="fas fa-thrash"></i></a></div>`
+    },
+    formatDate:(date) => {
+        console.log(date);
+        return `<p>Actualizado el ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
     }
 }

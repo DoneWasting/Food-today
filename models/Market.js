@@ -24,6 +24,8 @@ const MarketSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
     }
+}, {
+    timestamps: true
 });
 
 MarketSchema.methods.setUpCategories = async function () {
