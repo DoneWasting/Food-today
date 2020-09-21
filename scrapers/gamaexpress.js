@@ -4,9 +4,10 @@ const puppeteer = require('puppeteer');
 async function getGamaExpressData () {
 
   let marketUrl = 'https://compraenlinea.excelsiorgama.com/'
+
   
   // Abriendo el browser con puppeteer
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   // Creando nueva pagina con puppeteer
     const page = await browser.newPage();
 

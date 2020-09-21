@@ -5,22 +5,22 @@ const Market = require('../models/Market');
 
 
 const runEveryDay = () => {
+  console.log('running');
     let dateAtRunTime = new Date();
-    dateAtRunTime.setHours(9);
-    dateAtRunTime.setMinutes(0);
-    dateAtRunTime.setSeconds(0);
-    dateAtRunTime.setMilliseconds(0);
+ 
+    
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1, dateAtRunTime.getHours() , 0, 0, 0 );
-  
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1 ,0 , 0 , 0, 0 );
+    console.log(dateAtRunTime);
+    console.log(nextDate);
     
     let difference = nextDate - dateAtRunTime;
   
     setTimeout( async () => {
-  
-        updatePlazasPrices();
-        await updateGamaExpressPrices();
+      console.log('son las 10:45');
+        await updatePlazasPrices();
+        updateGamaExpressPrices();
 
         const gamaExpress = await Market.findById('5f6790d4d97f893d40824b5d');
         const plazas = await Market.findById('5f6790c5d97f893d40824b5c');
@@ -36,6 +36,7 @@ const runEveryDay = () => {
   
   async function updateGamaExpressPrices() {
       console.time('someFunction');
+      console.log('starting gama update');
       let data = await getGamaExpressData();
       console.timeEnd('someFunction');
   
@@ -59,6 +60,7 @@ const runEveryDay = () => {
 
     async function updatePlazasPrices() {
         console.time('someFunction');
+        console.log('starting Plazas update');
         let data = await getPlazasData();
         console.timeEnd('someFunction');
     
