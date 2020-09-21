@@ -1,31 +1,30 @@
 <div class="container">
-<h3>Crea tú Comercio</h3>
+<h3  class="center-align">Crea tú Comercio</h3>
 <div class="row">
     <form action="/markets" method="POST" class="col s12">
         <div class="row">
-            <div class="input-field">
+            <div class="input-field col s12 m6">
                 <input type="text" name="name" id="name">
                 <label for="name">Nombre del Comercio</label>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field">
+        
+            <div class="input-field col s12 m6">
                 <input type="text" name="brand" id="brand">
                 <label for="brand">Marca del Comercio</label>
             </div>
         </div>
     
     <div class="row">
-        <div class="input-field">
+        <div class="input-field col s12 m6">
                 <input type="text" name="location" id="location">
                 <label for="location">Ubicación del Comercio</label>
             </div>
-    </div>
-
-    <div class="row">
-        <input type="submit" value="Guardar" class="btn">
+  
+        <div class="col s12 m6">
+              <input type="submit" value="Guardar" class="btn">
         <a href="/markets" class="btn orange">Cancelar</a>
+        </div>
+      
     </div>
     </form>
 </div>

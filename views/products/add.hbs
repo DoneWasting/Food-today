@@ -2,45 +2,48 @@
 
 
 <div class="container">
-    <h1>Add a product</h1>
+    <h3 class="center-align">Agrega un productos</h3>
 {{> _messages}}
 <form action="/markets/{{market._id}}/products" method="POST">
     <div class="row">
-            <div class="input-field">
+            <div class="input-field col s12 m6">
                 <input type="text" name="name" id="name" required>
-                <label for="name">Product Name</label>
+                <label for="name">Nombre del producto</label>
             </div>
 
-            <div class="input-field">
+            <div class="input-field col s12 m6">
                 <input type="number" name="priceBs" id="priceBs" required>
-                <label for="priceBs">Product PriceBs</label>
+                <label for="priceBs">Precio en Bs del Producto</label>
             </div>
 
-            <div class="input-field">
+            <div class="input-field col s12 m4">
                 <input type="text" name="mainCategory" id="category" required>
-                <label for="category">Main Category</label>
+                <label for="category">Categoría principal del producto</label>
             </div>
 
-            <div class="input-field">
+            <div class="input-field col s12 m4">
                 <input type="text" name="subCategory" id="category" required>
-                <label for="category">Sub Category</label>
+                <label for="category">Categoría secundaria del producto</label>
             </div>
 
-            <div class="input-field">
+            <div class="input-field col s12 m4">
                 <input type="text" name="itemCategory" id="category" required>
-                <label for="category">Item Category</label>
+                <label for="category">Categoría terciaria del producto</label>
             </div>
     </div>
-    <div class="row">
+    <div class="row center-align">
         <input type="submit" value="Guardar Comercio" class="btn">
-        <a href="/markets/{{market._id}}" class="btn orange">Cancel</a>
+        <a href="/markets/{{market._id}}" class="btn orange">Cancelar</a>
         
     </div>
     
 </form>
-<h3>Upload Excel file</h3>
+<h3  class="center-align">Sube varios productos</h3>
 <form action="/markets/{{market._id}}/products/upload" method="POST" enctype="multipart/form-data">
-  <input type="file" name="excel"/>
-  <input type="submit" value="Upload" class="btn">
+<div class="row center-align">
+      <input type="file" name="excel"/>
+  <input type="submit" value="Subir Archivo" class="btn">
+</div>
+
 </form>
 </div>

@@ -101,6 +101,11 @@
       margin-bottom: 30px;
   }
 
+  .section-benefits {
+      height:50vh;
+  }
+
+
   .button-test {
       background-color: #51CB20;
       color:white;
@@ -229,6 +234,10 @@
     color:#ffffff;
 }
 
+.hero-card input {
+    color:#ffffff;
+}
+
 .item-card h5 {
     color:#3A5683;
 }
@@ -241,6 +250,20 @@
 
 .hero-login {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/herologinbags.jpg");
+  
+    /* Set a specific height */
+    height: 100vh;
+    width: 100%;
+  
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-register {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/heroregisterpiggy.jpg");
   
     /* Set a specific height */
     height: 100vh;

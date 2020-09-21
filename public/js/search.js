@@ -22,11 +22,11 @@ searchForm.addEventListener('submit', (e) => {
                     html.innerHTML = 
                     `
                     <div class="col s12 l4 m6">
-                         <div class="card">
+                         <div class="card item-card">
                             <div class="card-content center-align">
                             <form action="/search/${item.name}"  method="POST">
-                                <h6 class="blue-text" name="productName">${item.name}</h6>
-                                <h6 class="green-text">${item.market.name}</h6>
+                                <h6  class="sub-heading" name="productName">${item.name}</h6>
+                                <h6 class="icon-green">${item.market.name}</h6>
                                 <p>Precio Bs: ${item.priceBs}</p>
                                 <p>Precio $: ${item.priceDolar}</p>
                                 
