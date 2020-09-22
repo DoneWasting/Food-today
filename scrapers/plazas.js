@@ -3,7 +3,9 @@ const puppeteer = require('puppeteer');
 
 
 async function getPlazasData () {
-    const browser = await puppeteer.launch( { args: ['--no-sandbox', '--disable-setuid-sandbox'], headless:false} );
+    console.log('Plazas scraper started');
+    const browser = await puppeteer.launch( { args: ['--no-sandbox', '--disable-setuid-sandbox' ,'--disable-dev-shm-usage',
+    '--single-process'], headless:false} );
     const page = await browser.newPage();
     const mainUrl = 'https://www.elplazas.com/';
 
@@ -17,7 +19,7 @@ async function getPlazasData () {
      }
      });
 
-    await page.setDefaultNavigationTimeout(0);
+    page.setDefaultNavigationTimeout(0);
 
     await page.goto(mainUrl, {waitUntil:'networkidle2'});
     await page.waitForSelector('.modal-footer buttonstore');

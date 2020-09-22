@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 
 
 async function getGamaExpressData () {
+  console.log('Gama scraper started');
 
   let marketUrl = 'https://compraenlinea.excelsiorgama.com/'
 
@@ -22,7 +23,7 @@ async function getGamaExpressData () {
     });
 
     // Configurando el tiempo en que se cierra el navegador porque tarda a 0
-    await page.setDefaultNavigationTimeout(0);
+    page.setDefaultNavigationTimeout(0);
 
     // Ir al la página principal de Gama express y Esperando networkidle2
     await page.goto(marketUrl, {waitUntil:'networkidle2'});

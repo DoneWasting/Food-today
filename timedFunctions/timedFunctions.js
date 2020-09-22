@@ -5,21 +5,22 @@ const Market = require('../models/Market');
 
 
 const runEveryDay = () => {
-  console.log('running');
+  console.log('Run EveryDay ran');
     let dateAtRunTime = new Date();
  
     
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1 ,0 , 0 , 0, 0 );
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate()  , dateAtRunTime.getHours()  , dateAtRunTime.getMinutes() + 10 , 0, 0 );
     console.log(dateAtRunTime);
     console.log(nextDate);
     
     let difference = nextDate - dateAtRunTime;
   
     setTimeout( async () => {
+      console.log('setTimeoutRan');
       console.log('son las 10:45');
-        await updatePlazasPrices();
+        updatePlazasPrices();
         updateGamaExpressPrices();
 
         const gamaExpress = await Market.findById('5f6790d4d97f893d40824b5d');
@@ -84,7 +85,7 @@ const runEveryDay = () => {
     }
 
 
-      runEveryDay();
+  runEveryDay();
 
 
     module.exports = runEveryDay;
