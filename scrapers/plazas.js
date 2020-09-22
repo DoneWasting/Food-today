@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 async function getPlazasData () {
     console.log('Plazas scraper started');
     const browser = await puppeteer.launch( { args: ['--no-sandbox', '--disable-setuid-sandbox' ,'--disable-dev-shm-usage',
-    '--single-process'], headless:false} );
+    '--single-process']} );
     const page = await browser.newPage();
     const mainUrl = 'https://www.elplazas.com/';
 

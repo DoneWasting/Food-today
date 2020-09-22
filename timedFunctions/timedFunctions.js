@@ -11,7 +11,7 @@ const runEveryDay = () => {
     
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate()  , dateAtRunTime.getHours()  , dateAtRunTime.getMinutes() + 10 , 0, 0 );
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate()  , dateAtRunTime.getHours()  , dateAtRunTime.getMinutes() + 5 , 0, 0 );
     console.log(dateAtRunTime);
     console.log(nextDate);
     
