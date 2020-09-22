@@ -11,7 +11,9 @@ const { ensureAuthenticated } = require('../middleware/auth');
 // Description Show login form
 // @Route GET /users/login
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {
+        header:false
+    });
 });
 
 // Description Handle login form

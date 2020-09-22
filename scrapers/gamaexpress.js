@@ -7,7 +7,7 @@ async function getGamaExpressData () {
 
   
   // Abriendo el browser con puppeteer
-    const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox' ,'--disable-dev-shm-usage', '--disable-setuid-sandbox'], headless:false });
   // Creando nueva pagina con puppeteer
     const page = await browser.newPage();
 
