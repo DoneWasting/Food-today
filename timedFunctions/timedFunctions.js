@@ -3,6 +3,17 @@ const getPlazasData = require('../scrapers/plazas');
 const Product = require('../models/Product');
 const Market = require('../models/Market');
 
+const runEveryHour = () => {
+  const dateAtRunTime = new Date();
+
+  const nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate(), dateAtRunTime.getHours() + 1 , 0, 0, 0);
+  const difference = nextDate - dateAtRunTime;
+  setTimeout(() => {
+    console.log(`Son las ${nextDate.getHours()} y el servidor esta vivo`);
+    runEveryHour();
+  }, difference);
+}
+
 
 const runEveryDay = () => {
   console.log('Run EveryDay ran');
@@ -11,7 +22,7 @@ const runEveryDay = () => {
     
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate()   , dateAtRunTime.getHours() + 3  , dateAtRunTime.getMinutes(), 0, 0 );
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1  , 9  , 0, 0, 0 );
     console.log(dateAtRunTime);
     console.log(nextDate);
     
@@ -86,6 +97,7 @@ const runEveryDay = () => {
 
 
   runEveryDay();
+  runEveryHour();
 
 
     module.exports = runEveryDay;

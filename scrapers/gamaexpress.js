@@ -140,3 +140,72 @@ async function getGamaExpressData () {
 
   module.exports = getGamaExpressData;
   
+  // const puppeteer = require('puppeteer');
+
+
+  // const getFarmatodoData = async () => {
+  //     let marketUrl = 'https://https://www.farmatodo.com.ve/';
+  
+  //     // PRODUCTION ARGUMENTS FOR PUPPETEER.LAUNCH
+  //     // args: ['--no-sandbox', '--disable-setuid-sandbox'
+  //     // ,'--disable-dev-shm-usage', '--disable-setuid-sandbox']
+      
+  //     // OPTIONS FOR NOT LOADING IMAGES, FONTS or SCRIPTS
+  //     // await page.setRequestInterception(true);
+  //     // page.on('request', (request) => {
+  //     // if (['image',  'font', 'script'].indexOf(request.resourceType()) !== -1) {
+  //     //     request.abort();
+  //     // } else {
+  //     //     request.continue();
+  //     // }
+  //     // });
+      
+        
+  //       // Abriendo el browser con puppeteer
+  //         const browser = await puppeteer.launch({  headless:false});
+  //       // Creando nueva pagina con puppeteer
+  //         const page = await browser.newPage();
+      
+        
+  //         // Configurando el tiempo en que se cierra el navegador porque tarda a 0
+  //         page.setDefaultNavigationTimeout(0);
+      
+  //         // Ir al la página principal de Gama express y Esperando networkidle2
+  //         await page.goto(marketUrl, {waitUntil:'networkidle2'});
+  
+  //         // 1. Seleccionar la clase cont-list-deparments ( Pertenece a el UL
+  //         //    de links de las categorías principales)
+  
+  //         let mainNav = document.querySelector('.cont-list-deparments');
+  
+  
+  //         const subCategoriesLinks = await page.evaluate( () => {
+  //             const mainNav = document.querySelectorAll('.text-sub-category');
+  //             const mainLinks = [];
+  
+  //             for (link of mainNav) {
+  //                 mainLinks.push(link.href);
+  //             }
+  
+             
+  //             return mainLinks;
+  //         });
+  
+  //         for(link of subCategoriesLinks) {
+  //             await page.goto(link, {waitUntil:'networkidle2'});
+  //         }
+  
+  
+  
+  
+  
+  //         // cont-title-description Categoría Principal ( Ya que selecionare el ul
+  //         // child de esta misma)
+  
+  //         // Categoría de item (categorías que vas a scrapear)
+  //         // let link = document.querySelectorAll('.cont-list-deparments .cont-sub-category');
+        
+          
+  // }
+  
+  
