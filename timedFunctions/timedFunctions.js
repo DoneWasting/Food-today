@@ -22,7 +22,7 @@ const runEveryDay = () => {
     
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1  , 9  , 0, 0, 0 );
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1  , 13  , 0, 0, 0 );
     console.log(dateAtRunTime);
     console.log(nextDate);
     
