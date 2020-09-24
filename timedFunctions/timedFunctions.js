@@ -22,15 +22,20 @@ const runEveryDay = () => {
     
 
 
-    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate() + 1  , 13  , 0, 0, 0 );
+    let nextDate = new Date(dateAtRunTime.getFullYear(), dateAtRunTime.getMonth(), dateAtRunTime.getDate()   , 13  , 0, 0, 0 );
     console.log(dateAtRunTime);
     console.log(nextDate);
     
     let difference = nextDate - dateAtRunTime;
+
+    if (difference < 0) {
+      console.log('Markets update already completed waiting for tomorrow');
+      return;
+    }
   
     setTimeout( async () => {
       console.log('setTimeoutRan');
-      console.log('son las 10:45');
+      
         updatePlazasPrices();
         updateGamaExpressPrices();
 
