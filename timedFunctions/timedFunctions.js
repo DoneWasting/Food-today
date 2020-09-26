@@ -1,5 +1,6 @@
 const getGamaExpressData = require('../scrapers/gamaexpress');
 const getPlazasData = require('../scrapers/plazas');
+const getCentralMadeirenseData = require('../scrapers/centralmadeirense');
 const Product = require('../models/Product');
 const Market = require('../models/Market');
 
@@ -38,6 +39,7 @@ const runEveryDay = () => {
       
         updatePlazasPrices();
         updateGamaExpressPrices();
+        updateCentralMadeirensePrices();
 
         const gamaExpress = await Market.findById('5f6790d4d97f893d40824b5d');
         const plazas = await Market.findById('5f6790c5d97f893d40824b5c');
@@ -98,6 +100,30 @@ const runEveryDay = () => {
         }
         console.log('Plazas prices update');
     
+    }
+
+    async function updateCentralMadeirensePrices()  {
+      console.time('someFunction');
+      console.log('starting Central Madeirense update');
+      let data = await getCentralMadeirenseData();
+      console.timeEnd('someFunction');
+  
+      for (let product of data) {
+        let matchedProduct = await Product.findOne({market:'5f6f6afe566c861ae83db021', name: product.name});
+        
+        if(!matchedProduct) {
+          await Product.createWithDolar(product.name, product.priceBs, product.mainCategory, product.subCategory, product.itemCategory)
+        } else {
+  
+          if(matchedProduct.priceBs !== product.priceBs) {
+            matchedProduct.priceBs = product.priceBs;
+            await matchedProduct.save();
+          }
+  
+        }
+
+      }
+      console.log('Central Madeirense prices update');
     }
 
 
